@@ -16,8 +16,18 @@ So that other people can enjoy their crazy antics
       actor: 'Peter Dinklage',
     }
 
+  show = TelevisionShow.new(attrs)
+
+    visit '/television_shows/new'
+    fill_in 'Title', with: show.title
+    fill_in 'Network', with: show.network
+    fill_in 'Years', with: show.years
+    fill_in 'Synopsis', with: show.synopsis
+    click_on 'Submit'
+
+
   character = Character.new(attrs)
-    visit '/characters/new'
+    visit '/television_shows/:id'
     fill_in 'Character', with: character.character
     fill_in 'Actor', with: character.actor
     click_on 'Submit'
