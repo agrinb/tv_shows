@@ -1,0 +1,9 @@
+<h3>Characters</h3>
+<ul>
+  <% @characters.each do |character| %>
+    <li>
+    <%binding.pry%>
+      <%= "Name: #{character.character} - Actor: #{character.actor} - Show #{character.television_show.title}" %>
+    </li>
+  <% end %>
+</ul>

@@ -1,14 +1,15 @@
 class CharactersController < ApplicationController
+  before_action :set_television_show, only: [:show, :edit, :update, :destroy]
+
   def index
     @characters = Character.all
+
+    binding.pry
   end
 
   def show
+    @television_show = TelevisionShow.find(params[:id])
     @character = Character.find(params[:id])
-  end
-
-  def new
-    @character = Character.new
   end
 
   def create
@@ -23,7 +24,11 @@ class CharactersController < ApplicationController
     end
   end
 
-  private
+
+private
+  def set_television_show
+    @television_show = TelevisionShow.find(params[:id]) rescue nil
+  end
 
   def character_params
     params.require(:character).permit(:character, :actor)

@@ -11,30 +11,29 @@ So that other people can enjoy their crazy antics
 # I must specify the character's name and the actor's name
 
   scenario 'user adds a new character to TV show' do
-    attrs = {
+    attrs_char = {
       character: 'Tyrion Lannister',
       actor: 'Peter Dinklage',
     }
 
-  show = TelevisionShow.new(attrs)
+    attrs_show = {
+      title: 'Game of Thrones',
+      network: 'HBO',
+      years: '2011-',
+      synopsis: 'Seven noble families fight for control of the mythical land of Westeros.'
+    }
 
-    visit '/television_shows/new'
-    fill_in 'Title', with: show.title
-    fill_in 'Network', with: show.network
-    fill_in 'Years', with: show.years
-    fill_in 'Synopsis', with: show.synopsis
-    click_on 'Submit'
+  show = TelevisionShow.create(attrs_show)
 
 
-  character = Character.new(attrs)
-    visit '/television_shows/:id'
+  character = Character.new(attrs_char)
+    visit "/television_shows/#{show.id}"
     fill_in 'Character', with: character.character
     fill_in 'Actor', with: character.actor
     click_on 'Submit'
 
     expect(page).to have_content 'Success'
     expect(page).to have_content character.character
-    expect(page).to_not have_content character.location
   end
 end
 
