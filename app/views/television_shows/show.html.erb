@@ -14,3 +14,10 @@
 </div>
 
 
+<div>
+  <% @television_show.characters.each do |character| %>
+    <%= "Character: #{character.character} - Actor: #{character.actor}" %>
+    <% end %>
+</div>
+
+
