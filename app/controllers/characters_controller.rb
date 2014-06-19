@@ -13,14 +13,14 @@ class CharactersController < ApplicationController
   end
 
   def create
-    @character = Character.new(character_params)
-
+    @character = Character.new(character_params, actor_id, television_show_id)
+    @character = Character.create(character: params[character], actor_id: @actor.id, television_show: @television_show.id)
     if @character.save
       flash[:notice] = "Success!"
-      redirect_to '/characters'
+      redirect_to 'television_shows/show'
     else
       flash.now[:notice] = "Your character couldn't be added."
-      render :new
+      redirect_to 'television_shows/show'
     end
   end
 
