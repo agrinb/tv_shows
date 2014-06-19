@@ -3,36 +3,32 @@ class ActorsController < ApplicationController
 
   def index
     @actors = Actor.all
-
-    binding.pry
   end
 
   def show
-    @actor = TelevisionShow.find(params[:id])
-    @character = Character.find(params[:id])
+    @actor = Actor.find(params[:id])
   end
 
-  def create
-    @character = Character.new(character_params)
+  def new
+    @actor = Actor.new
+  end
 
-    if @character.save
+  def
+    binding.pry
+    @actor = Actor.create(name: params[:actor])
+    if @actor.save
       flash[:notice] = "Success!"
-      redirect_to '/characters'
     else
       flash.now[:notice] = "Your character couldn't be added."
-      render :new
     end
   end
 
+private
+  def set_actor
+    @actor = Actor.find(params[:id]) rescue nil
+  end
 
-  private
-    def set_actor
-      @actor = TelevisionShow.find(params[:id]) rescue nil
-    end
-
-    def character_params
-      params.require(:character).permit(:character, :actor)
-    end
-
-
+  def character_params
+    params.require(:actor).permit(:actor, :name, :id)
+  end
 end

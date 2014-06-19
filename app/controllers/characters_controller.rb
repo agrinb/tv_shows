@@ -1,10 +1,14 @@
 class CharactersController < ApplicationController
-  before_action :set_television_show, only: [:show, :edit, :update, :destroy]
+  #before_action :set_television_show, only: [:show, :edit, :update, :destroy]
 
   def index
     @characters = Character.all
+  end
 
-    binding.pry
+  def new
+    @character = Character.new
+    @television_show = TelevisionShow.find(params[:id])
+     binding.pry
   end
 
   def show
@@ -13,8 +17,10 @@ class CharactersController < ApplicationController
   end
 
   def create
-    @character = Character.new(character_params, actor_id, television_show_id)
-    @character = Character.create(character: params[character], actor_id: @actor.id, television_show: @television_show.id)
+    @actor = Actor.create(params[:actor])
+    binding.pry
+    @character = Character.create(character: params[:character], actor_id: @actor.id, television_show: @television_show.id)
+    binding.pry
     if @character.save
       flash[:notice] = "Success!"
       redirect_to 'television_shows/show'
@@ -31,6 +37,6 @@ private
   end
 
   def character_params
-    params.require(:character).permit(:character, :actor)
+    params.require(:character).permit(:character, :television_show_id, :actor_id)
   end
 end
