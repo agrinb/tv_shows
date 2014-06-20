@@ -11,11 +11,13 @@ class ActorsController < ApplicationController
 
   def new
     @actor = Actor.new
+    @character = Character.new(character: params[:character], actor_id: @actor.id, television_show: @television_show.id)
   end
 
-  def
+  def create
+    @actor = Actor.create(name: actor_params[:actor_name])
+    @character = Character.create(character: params[:character], actor_id: @actor.id, television_show: @television_show.id)
     binding.pry
-    @actor = Actor.create(name: params[:actor])
     if @actor.save
       flash[:notice] = "Success!"
     else
@@ -29,6 +31,6 @@ private
   end
 
   def character_params
-    params.require(:actor).permit(:actor, :name, :id)
+    params.require(:actor).permit(:actor_name, :character)
   end
 end
