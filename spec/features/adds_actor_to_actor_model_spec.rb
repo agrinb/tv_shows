@@ -9,21 +9,22 @@ feature 'user adds a character', %Q{
 
   scenario 'user views characters on show page' do
 
-  show = TelevisionShow.create(title: 'Ironman', network: 'HBO' )
+    attrs_show = {
+      title: 'Ironman',
+      network: 'ABC',
+      years: '2011-',
+      synopsis: 'Seven noble families fight for control of the mythical land of Westeros.'
+    }
 
-  character = Character.new
-  actor = Actor.new
+  show = TelevisionShow.create(attrs_show)
+
   visit "/television_shows/#{show.id}"
   fill_in 'Character', with: 'Tony Stark'
-  fill_in 'Actor', with: 'Rober Downey'
-  televions_show_id = @television_show.id
-  actor = Actor.find(params[:actor])
-  actor_id = actor.id
-  character = Character.create(character: 'Tony Stark', actor_id:  )
+  fill_in 'Name', with: 'Rober Downey'
   click_on 'Submit'
 
 
-    visit "/actors"
+    visit "/television_shows/#{show.id}"
     expect(page).to have_content 'Rober Downey'
   end
 end

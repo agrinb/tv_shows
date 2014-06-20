@@ -11,8 +11,10 @@ So I can learn more about it
 
   show = TelevisionShow.create(title: 'Ironman', network: 'HBO' )
 
+  actor = Actor.create(name: 'Robert Downey Jr.')
 
-  character = Character.create(character: 'Tony Stark', actor: 'Rober Downey', television_show_id: show.id)
+
+  character = Character.create(character: 'Tony Stark', actor: actor, television_show_id: show.id)
 
 
 
