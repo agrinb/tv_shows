@@ -1,6 +1,6 @@
-<h3>Characters for #{@television_show.title} </h3>
+<h3>Characters for <%= @television_show.title %> </h3>
 
-<!-- <%= form_for @character do |f| %>
+<%= form_for [@television_show, @character] do |f| %>
 
   <% if @actor.errors.any? %>
     <ul>
@@ -12,21 +12,16 @@
 
   <div>
     <%= f.label :character %>
-    <%= f.text_field :character %> -->
+    <%= f.text_field :character %>
 
-    <% fields_for @actor do |actor| %>
-    <p>
-    <%= actor.label :name %>
-    <%= actor.text_field :name %>
-  <% end %></div>
+    <%= f.fields_for @actor do |actor| %>
+      <p>
+        <%= actor.label :name %>
+        <%= actor.text_field :name %>
+      </p>
+    <% end %>
+  </div>
 
 
- <!--  <%= f.submit 'Submit' %> -->
-<!-- <% end %> -->
-
-<%= form_for @character, url: {action: "create"} do |f| %>
-  <%= f.text_field :character %>
-  <%= fields_for @character.actor do |u| %>
-    <%= u.text_field :name %>
-  <% end %>
+  <%= f.submit 'Submit' %>
 <% end %>

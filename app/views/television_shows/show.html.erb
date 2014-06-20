@@ -16,7 +16,7 @@
 
 <div>
   <% @television_show.characters.each do |character| %>
-    <%= "Character: #{character.character} - Actor: #{character.actor}" %>
+    <%= "Character: #{character.character} - Actor: #{character.actor.name}" %>
     <% end %>
 </div>
 

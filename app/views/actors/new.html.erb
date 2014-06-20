@@ -1,0 +1,19 @@
+<h3>Characters for #{@television_show.title} </h3>
+
+<%= form_for @actor, url: {action: "create"} do |f| %>
+
+  <% if @actor.errors.any? %>
+    <ul>
+      <% @actor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <%= f.submit 'Submit' %>
+<% end %>

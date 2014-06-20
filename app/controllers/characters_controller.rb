@@ -7,29 +7,28 @@ class CharactersController < ApplicationController
 
   def new
     @character = Character.new
-    @television_show = TelevisionShow.find(params[:id])
-    @actor = Actor.new
+    @actors = Actor.all
   end
 
   def show
     @television_show = TelevisionShow.find(params[:id])
     @character = Character.find(params[:id])
+    @actors = select("post", "person_id", Person.all.collect {|p| [ p.name, p.id ] }, {include_blank: 'None'})
   end
 
 
   def create
-    @actor = Actor.create(name: character_params[:actor_name])
-        binding.pry
-    @character = Character.new(character: params[:character], actor_id: @actor.id, television_show: @television_show.id)
-
-    @character = Character.create(character: params[:character], actor_id: @actor.id, television_show: @television_show.id)
-    binding.pry
+    @television_show = TelevisionShow.find(params[:television_show_id])
+    @actor = Actor.find_or_create_by(name: params[:character][:actor][:name])
+    @character = Character.new(character_params)
+    @character.actor = @actor
+    @character.television_show = @television_show
     if @character.save
       flash[:notice] = "Success!"
-      redirect_to 'television_shows/show'
+      redirect_to @television_show
     else
       flash.now[:notice] = "Your character couldn't be added."
-      redirect_to 'television_shows/show'
+      render 'television_shows/show'
     end
   end
 
@@ -40,6 +39,6 @@ private
   end
 
   def character_params
-    params.require(:character).permit(:character, :actor_name)
+    params.require(:character).permit(:character, :actor)
   end
 end
