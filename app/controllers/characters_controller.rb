@@ -32,6 +32,11 @@ class CharactersController < ApplicationController
     end
   end
 
+  def destroy
+    Character.destroy(params[:id])
+    redirect_to "/television_shows/#{params[:television_show_id]}"
+  end
+
 
 private
   def set_television_show

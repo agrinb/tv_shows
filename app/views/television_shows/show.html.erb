@@ -15,9 +15,14 @@
 
 
 <div>
+  <ul>
   <% @television_show.characters.each do |character| %>
-    <%= "Character: #{character.character} - Actor: #{character.actor.name}" %>
+    <li><%= "Character: #{character.character} - Actor: #{character.actor.name} "%><%= link_to "Delete", television_show_character_path(@television_show, character), method: :delete %>
+
+
+</li>
     <% end %>
+  </ul>
 </div>
 
 
